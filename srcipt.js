@@ -1,20 +1,32 @@
-function showElement(elementId, delay) {
+function fadeInOutElement(elementId, delayBeforeFadeIn, displayDuration) {
     setTimeout(() => {
         const element = document.getElementById(elementId);
-        // Retirer la classe 'hidden' démarre l'animation grâce à la classe CSS
-        element.classList.remove('hidden');
-    }, delay);
+        element.style.animation = `fadeInOut 4s ease-in-out forwards`;
+    }, delayBeforeFadeIn);
+
+    setTimeout(() => {
+        const element = document.getElementById(elementId);
+        element.style.opacity = '0';
+    }, delayBeforeFadeIn + displayDuration);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Définition des délais pour chaque élément
-    showElement('hi', 0); // Affiche immédiatement
-    showElement('just-wanted', 2000); // Attend 2 secondes
-    showElement('funny-love', 4000); // Attend 4 secondes
-    showElement('happy', 6000); // Attend 6 secondes
-    showElement('valentine', 8000); // Attend 8 secondes
-    showElement('kind', 10000); // Attend 10 secondes
-    showElement('love', 12000); // Attend 12 secondes
-    showElement('bunny-love', 14000); // Attend 14 secondes
-    showElement('sign-off', 16000); // Attend 16 secondes
+    // Créons et affichons les cœurs flottants
+    const animationContainer = document.getElementById('animation');
+    for (let i = 0; i < 20; i++) {
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        animationContainer.appendChild(heart);
+    }
+
+    // Affichage séquentiel des phrases
+    fadeInOutElement('hi', 0, 4000);
+    fadeInOutElement('just-wanted', 4000, 4000);
+    fadeInOutElement('funny-love', 8000, 4000);
+    fadeInOutElement('happy', 12000, 4000);
+    fadeInOutElement('valentine', 16000, 4000);
+    fadeInOutElement('kind', 20000, 4000);
+    fadeInOutElement('love', 24000, 4000);
+    fadeInOutElement('bunny-love', 28000, 4000);
+    fadeInOutElement('sign-off', 32000, 4000);
 });
