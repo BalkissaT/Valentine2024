@@ -1,24 +1,20 @@
-function showElement(elementId) {
-    const element = document.getElementById(elementId);
-    element.classList.remove('hidden'); // Cela déclenchera l'animation CSS fadeIn
-}
-
-function hideElement(elementId) {
-    const element = document.getElementById(elementId);
-    element.classList.add('hidden');
+function showElement(elementId, delay) {
+    setTimeout(() => {
+        const element = document.getElementById(elementId);
+        // Retirer la classe 'hidden' démarre l'animation grâce à la classe CSS
+        element.classList.remove('hidden');
+    }, delay);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const elementsToShow = ['hi', 'just-wanted', 'funny-love', 'happy', 'valentine', 'kind', 'love', 'bunny-love', 'sign-off'];
-    let delay = 0;
-
-    elementsToShow.forEach((id) => {
-        setTimeout(() => showElement(id), delay);
-        // Augmenter le délai pour le prochain élément
-        delay += 2000;
-    });
-
-     elementsToShow.forEach((id) => {
-        setTimeout(() => hideElement(id), delay + 2000); // Les éléments disparaîtront après 2 secondes supplémentaires
-     });
+    // Définition des délais pour chaque élément
+    showElement('hi', 0); // Affiche immédiatement
+    showElement('just-wanted', 2000); // Attend 2 secondes
+    showElement('funny-love', 4000); // Attend 4 secondes
+    showElement('happy', 6000); // Attend 6 secondes
+    showElement('valentine', 8000); // Attend 8 secondes
+    showElement('kind', 10000); // Attend 10 secondes
+    showElement('love', 12000); // Attend 12 secondes
+    showElement('bunny-love', 14000); // Attend 14 secondes
+    showElement('sign-off', 16000); // Attend 16 secondes
 });
