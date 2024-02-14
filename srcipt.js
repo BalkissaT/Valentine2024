@@ -1,26 +1,24 @@
-function showElement(elementId) {
-    const element = document.getElementById(elementId);
-    element.classList.add('fade-in');
-    element.classList.remove('hidden');
-}
-
-function hideElement(elementId) {
-    const element = document.getElementById(elementId);
-    element.classList.add('fade-out');
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    const elements = ['hi', 'just-wanted', 'funny-love', 'happy', 'valentine', 'kind', 'love', 'bunny-love', 'sign-off'];
-    let index = 0;
+    const messages = document.querySelectorAll('.message');
+    let delay = 0;
 
-    function nextElement() {
-        if (index > 0) hideElement(elements[index - 1]); // Hide the previous element
-        if (index < elements.length) {
-            showElement(elements[index]);
-            setTimeout(nextElement, 4000); // Show next element after 4s
-        }
-        index++;
+    // Fonction pour animer les messages un par un
+    messages.forEach((message, index) => {
+        setTimeout(() => {
+            message.classList.add('fade-in-out');
+        }, delay);
+        
+        // Ajoutez le temps d'animation plus un délai avant le prochain message
+        delay += 4000; // Durée de l'animation fadeInOut + délai
+    });
+
+    // Création et animation des cœurs
+    const heartsContainer = document.getElementById('hearts-container');
+    for (let i = 0; i < 30; i++) { // Créez 30 cœurs ou autant que vous le souhaitez
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        setTimeout(() => {
+            heartsContainer.appendChild(heart);
+        }, delay);
     }
-
-    nextElement();
 });
