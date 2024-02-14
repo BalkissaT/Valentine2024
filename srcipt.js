@@ -1,44 +1,20 @@
-function showElement(element, delay = 0) {
+function showElement(elementId, delay) {
     setTimeout(() => {
+        const element = document.getElementById(elementId);
         element.classList.remove('hidden');
+        element.style.opacity = 1; // Pour l'animation fadeIn
     }, delay);
 }
 
-function fillHearts(container, count) {
-    for (let i = 0; i < count; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        container.appendChild(heart);
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    const countdownElement = document.getElementById('countdown');
-    let countdown = 5;
-
-    const interval = setInterval(() => {
-        countdownElement.innerText = countdown;
-        if (countdown <= 1) {
-            clearInterval(interval);
-            countdownElement.classList.add('hidden');
-            const message = document.getElementById('message');
-            showElement(message);
-
-            const steps = [
-                () => showElement(document.getElementById('hi'), 500),
-                () => showElement(document.getElementById('just-wanted'), 1500),
-                () => {
-                    const heartsContainer = document.getElementById('hearts');
-                    fillHearts(heartsContainer, 100);
-                    showElement(heartsContainer, 500);
-                },
-                () => showElement(document.getElementById('happy-valentine'), 4000),
-                () => showElement(document.getElementById('love'), 4500),
-                () => showElement(document.getElementById('sign-off'), 5000),
-            ];
-
-            steps.forEach((func, index) => setTimeout(func, index * 2000));
-        }
-        countdown--;
-    }, 1000);
+    // Définition des délais pour chaque étape de l'animation
+    showElement('hi', 0); // Immédiatement
+    showElement('just-wanted', 2000); // Après 2 secondes
+    showElement('funny-love', 4000); // Après 4 secondes
+    showElement('happy', 6000); // Après 6 secondes
+    showElement('valentine', 8000); // Après 8 secondes
+    showElement('kind', 10000); // Après 10 secondes
+    showElement('love', 12000); // Après 12 secondes
+    showElement('bunny-love', 14000); // Après 14 secondes
+    showElement('sign-off', 16000); // Après 16 secondes
 });
