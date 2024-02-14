@@ -7,11 +7,7 @@ body, html {
     justify-content: center;
     align-items: center;
     text-align: center;
-}
-
-.hidden {
-    opacity: 0;
-    visibility: hidden;
+    overflow: hidden;
 }
 
 #animation p, #animation div {
@@ -19,85 +15,46 @@ body, html {
     font-size: 2em;
     margin: 0;
     padding: 0;
-    transition: opacity 2s, visibility 0s 2s;
-    animation-fill-mode: forwards;
+    position: absolute;
+    opacity: 0; /* Commence caché */
+    transform: translateY(-20px); /* Commence légèrement au-dessus de sa position finale */
+    animation: fadeInOut 4s ease-in-out forwards;
 }
 
-@keyframes fadeIn {
-    0% { opacity: 0; visibility: hidden; }
-    100% { opacity: 1; visibility: visible; }
+/* Animation pour faire apparaître et disparaître les éléments */
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; visibility: hidden; transform: translateY(-20px); }
+    10%, 90% { opacity: 1; visibility: visible; transform: translateY(0px); }
 }
 
-#hi {
-    animation: fadeIn 2s ease-in-out 0s forwards;
-}
-
-#just-wanted {
-    animation: fadeIn 2s ease-in-out 2s forwards;
-}
-
-#funny-love {
-    animation: fadeIn 2s ease-in-out 4s forwards;
-}
-
-#happy {
-    animation: fadeIn 2s ease-in-out 6s forwards;
-}
-
-#valentine {
-    animation: fadeIn 2s ease-in-out 8s forwards;
-}
-
-#kind {
-    animation: fadeIn 2s ease-in-out 10s forwards;
-}
-
-#love {
-    animation: fadeIn 2s ease-in-out 12s forwards;
-}
-
-#bunny-love {
-    font-size: 3em;
-    animation: fadeIn 2s ease-in-out 14s forwards;
-}
-
-#sign-off {
-    animation: fadeIn 2s ease-in-out 16s forwards;
-}
-
-/* Styles pour les cœurs avec l'animation de battement */
-@keyframes heartBeat {
-    0%, 100% { transform: scale(1); }
-    25%, 75% { transform: scale(1.1); }
+/* Animation pour les coeurs flottants */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
 }
 
 .heart {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    margin: 2px;
-    transform: rotate(-45deg);
-    animation: heartBeat 1s infinite;
-    position: relative;
-}
-
-.heart:before,
-.heart:after {
-    content: "";
-    background-color: red;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
     position: absolute;
+    top: -50px; /* Commencer hors de l'écran */
+    animation: float 2s ease-in-out infinite, fadeInOut 10s ease-in-out forwards;
 }
 
-.heart:before {
-    top: -15px;
-    left: 0;
+/* Génère un certain nombre de cœurs à des positions aléatoires */
+:root {
+    --hearts-count: 20; /* Modifiez ce nombre pour plus ou moins de cœurs */
 }
 
-.heart:after {
-    top: 0;
-    left: 15px;
+@keyframes appear {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+/* Ajoutons une boucle pour générer les cœurs */
+@for $i from 1 through var(--hearts-count) {
+    .heart:nth-child(#{$i}) {
+        left: random(100) * 1%; /* Position horizontale aléatoire */
+        animation-delay: random(5000) * 1ms; /* Délai d'apparition aléatoire */
+        animation-duration: 5s + random(5000) * 1ms; /* Durée d'animation aléatoire */
+    }
 }
