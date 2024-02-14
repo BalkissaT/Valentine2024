@@ -13,20 +13,61 @@ body, html {
     display: none;
 }
 
-#content {
+#animation p, #animation div {
     color: white;
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    transition: opacity 2s;
+    animation-fill-mode: forwards; /* Assure que la propriété reste appliquée après l'animation */
 }
 
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+#hi {
+    animation: fadeIn 2s ease-in-out;
+}
+
+#just-wanted {
+    animation: fadeIn 2s ease-in-out 2s; /* Délai de 2 secondes */
+}
+
+#funny-love {
+    animation: fadeIn 2s ease-in-out 4s; /* Délai de 4 secondes */
+}
+
+#happy {
+    animation: fadeIn 2s ease-in-out 6s; /* Délai de 6 secondes */
+}
+
+#valentine {
+    animation: fadeIn 2s ease-in-out 8s; /* Délai de 8 secondes */
+}
+
+#kind {
+    animation: fadeIn 2s ease-in-out 10s; /* Délai de 10 secondes */
+}
+
+#love {
+    animation: fadeIn 2s ease-in-out 12s; /* Délai de 12 secondes */
+}
+
+#bunny-love {
+    font-size: 3em;
+    animation: fadeIn 2s ease-in-out 14s; /* Délai de 14 secondes */
+}
+
+#sign-off {
+    animation: fadeIn 2s ease-in-out 16s; /* Délai de 16 secondes */
+}
+
+/* Styles pour les coeurs */
 @keyframes heartBeat {
-    0% { transform: scale(1); }
-    25% { transform: scale(1.1); }
-    50% { transform: scale(1); }
-    75% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-#hearts {
-    font-size: 0;
+    0%, 100% { transform: scale(1); }
+    25%, 75% { transform: scale(1.1); }
 }
 
 .heart {
@@ -37,6 +78,7 @@ body, html {
     margin: 2px;
     transform: rotate(-45deg);
     animation: heartBeat 1s infinite;
+    position: relative;
 }
 
 .heart:before,
