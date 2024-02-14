@@ -1,13 +1,14 @@
 body, html {
     height: 100%;
     margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
     background: pink;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden; /* Empêche le débordement des animations hors de l'écran */
+    overflow: hidden;
 }
 
 .message {
@@ -15,84 +16,60 @@ body, html {
     font-size: 2em;
     margin: 0;
     padding: 0;
-    opacity: 0;
-    transition: opacity 2s, transform 2s;
     position: absolute;
+    opacity: 0;
+    transition: opacity 2s ease, transform 2s ease;
 }
 
 .hidden {
-    visibility: hidden;
+    display: none;
 }
 
 /* Animation pour les messages qui apparaissent et disparaissent */
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(-20px); }
-    10% { opacity: 1; transform: translateY(0); }
-    90% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(20px); }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Animation pour les coeurs */
-@keyframes floatAndFade {
-    0% { transform: scale(0); opacity: 1; }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(0); opacity: 0; }
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
 }
 
-#hearts-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+/* Keyframes pour les coeurs animés */
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
 }
 
 .heart {
-    background-color: red;
-    width: 30px;
-    height: 30px;
-    margin: 10px;
-    transform: rotate(-45deg);
-    position: relative;
-    display: inline-block;
-    opacity: 0;
-    animation: floatAndFade 4s ease-in-out infinite;
-}
-
-.heart:before,
-.heart:after {
-    content: '';
-    background-color: red;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-image: url('heart.png'); /* Remplacer par le chemin de votre image de coeur */
+    background-size: cover;
+    opacity: 0;
+    animation: scaleIn 1s ease forwards, scaleOut 1s ease forwards;
+    animation-fill-mode: forwards;
 }
 
-.heart:before {
-    top: -15px;
-    left: 0;
-}
-
-.heart:after {
-    top: 0;
-    left: 15px;
-}
-
-/* Appliquez cette classe dans le JavaScript pour les animations de message */
-.fade-in-out {
-    animation: fadeInOut 4s ease-in-out forwards;
-}
-
-/* Positionnement aléatoire des cœurs dans le conteneur */
-.heart:nth-child(odd) {
-    animation-delay: 0s;
-}
-
-.heart:nth-child(even) {
-    animation-delay: 2s;
-}
