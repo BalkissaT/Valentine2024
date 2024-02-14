@@ -9,15 +9,60 @@ body, html {
     text-align: center;
 }
 
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
 #animation p, #animation div {
     color: white;
     font-size: 2em;
     margin: 0;
     padding: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: visibility 0s, opacity 2s ease-in-out;
-    animation-fill-mode: forwards; /* Assure que la propriété reste appliquée après l'animation */
+    transition: opacity 2s, visibility 0s 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; visibility: hidden; }
+    100% { opacity: 1; visibility: visible; }
+}
+
+#hi {
+    animation: fadeIn 2s ease-in-out 0s forwards;
+}
+
+#just-wanted {
+    animation: fadeIn 2s ease-in-out 2s forwards;
+}
+
+#funny-love {
+    animation: fadeIn 2s ease-in-out 4s forwards;
+}
+
+#happy {
+    animation: fadeIn 2s ease-in-out 6s forwards;
+}
+
+#valentine {
+    animation: fadeIn 2s ease-in-out 8s forwards;
+}
+
+#kind {
+    animation: fadeIn 2s ease-in-out 10s forwards;
+}
+
+#love {
+    animation: fadeIn 2s ease-in-out 12s forwards;
+}
+
+#bunny-love {
+    font-size: 3em;
+    animation: fadeIn 2s ease-in-out 14s forwards;
+}
+
+#sign-off {
+    animation: fadeIn 2s ease-in-out 16s forwards;
 }
 
 /* Styles pour les cœurs avec l'animation de battement */
@@ -56,20 +101,3 @@ body, html {
     top: 0;
     left: 15px;
 }
-
-/* Animation fadeIn pour chaque élément */
-@keyframes fadeIn {
-    0% { opacity: 0; visibility: hidden; }
-    100% { opacity: 1; visibility: visible; }
-}
-
-/* Assignation des animations fadeIn avec délai pour chaque élément */
-#hi           { animation: fadeIn 2s ease-in-out 0s; }
-#just-wanted  { animation: fadeIn 2s ease-in-out 2s; }
-#funny-love   { animation: fadeIn 2s ease-in-out 4s; }
-#happy        { animation: fadeIn 2s ease-in-out 6s; }
-#valentine    { animation: fadeIn 2s ease-in-out 8s; }
-#kind         { animation: fadeIn 2s ease-in-out 10s; }
-#love         { animation: fadeIn 2s ease-in-out 12s; }
-#bunny-love   { animation: fadeIn 2s ease-in-out 14s; font-size: 3em; }
-#sign-off     { animation: fadeIn 2s ease-in-out 16s; }
