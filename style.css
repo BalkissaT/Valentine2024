@@ -7,54 +7,92 @@ body, html {
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden;
+    overflow: hidden; /* Empêche le débordement des animations hors de l'écran */
 }
 
-#animation p, #animation div {
+.message {
     color: white;
     font-size: 2em;
     margin: 0;
     padding: 0;
+    opacity: 0;
+    transition: opacity 2s, transform 2s;
     position: absolute;
-    opacity: 0; /* Commence caché */
-    transform: translateY(-20px); /* Commence légèrement au-dessus de sa position finale */
-    animation: fadeInOut 4s ease-in-out forwards;
 }
 
-/* Animation pour faire apparaître et disparaître les éléments */
+.hidden {
+    visibility: hidden;
+}
+
+/* Animation pour les messages qui apparaissent et disparaissent */
 @keyframes fadeInOut {
-    0%, 100% { opacity: 0; visibility: hidden; transform: translateY(-20px); }
-    10%, 90% { opacity: 1; visibility: visible; transform: translateY(0px); }
+    0% { opacity: 0; transform: translateY(-20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20px); }
 }
 
-/* Animation pour les coeurs flottants */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+/* Animation pour les coeurs */
+@keyframes floatAndFade {
+    0% { transform: scale(0); opacity: 1; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+#hearts-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .heart {
+    background-color: red;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    transform: rotate(-45deg);
+    position: relative;
+    display: inline-block;
+    opacity: 0;
+    animation: floatAndFade 4s ease-in-out infinite;
+}
+
+.heart:before,
+.heart:after {
+    content: '';
+    background-color: red;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
     position: absolute;
-    top: -50px; /* Commencer hors de l'écran */
-    animation: float 2s ease-in-out infinite, fadeInOut 10s ease-in-out forwards;
 }
 
-/* Génère un certain nombre de cœurs à des positions aléatoires */
-:root {
-    --hearts-count: 20; /* Modifiez ce nombre pour plus ou moins de cœurs */
+.heart:before {
+    top: -15px;
+    left: 0;
 }
 
-@keyframes appear {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
+.heart:after {
+    top: 0;
+    left: 15px;
 }
 
-/* Ajoutons une boucle pour générer les cœurs */
-@for $i from 1 through var(--hearts-count) {
-    .heart:nth-child(#{$i}) {
-        left: random(100) * 1%; /* Position horizontale aléatoire */
-        animation-delay: random(5000) * 1ms; /* Délai d'apparition aléatoire */
-        animation-duration: 5s + random(5000) * 1ms; /* Durée d'animation aléatoire */
-    }
+/* Appliquez cette classe dans le JavaScript pour les animations de message */
+.fade-in-out {
+    animation: fadeInOut 4s ease-in-out forwards;
+}
+
+/* Positionnement aléatoire des cœurs dans le conteneur */
+.heart:nth-child(odd) {
+    animation-delay: 0s;
+}
+
+.heart:nth-child(even) {
+    animation-delay: 2s;
 }
