@@ -4,18 +4,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const messages = document.querySelectorAll('.message');
     let delay = 0;
 
-    messages.forEach((message) => {
-      setTimeout(() => {
+    messages.forEach((message, index) => {
+      // Si le message n'est pas le premier, retirez la classe 'hidden' avant de commencer l'animation
+      if (index !== 0) {
+        setTimeout(() => {
+          message.classList.remove('hidden'); // Assurez-vous que le message est visible avant de commencer l'animation
+          message.classList.add('fade-in');
+          setTimeout(() => {
+            message.classList.remove('fade-in');
+            message.classList.add('fade-out');
+            setTimeout(() => {
+              message.classList.remove('fade-out');
+              // Ajoutez 'hidden' seulement si vous souhaitez cacher complètement après l'animation
+              // message.classList.add('hidden');
+            }, 2000); // temps pour fade out
+          }, 3000); // temps affiché avant fade-out
+        }, delay);
+      } else {
+        // Pour le premier message, commencez directement avec fade-in sans retirer 'hidden'
         message.classList.add('fade-in');
         setTimeout(() => {
           message.classList.remove('fade-in');
           message.classList.add('fade-out');
           setTimeout(() => {
             message.classList.remove('fade-out');
-            message.classList.add('hidden');
-          }, 2000); // temps pour fade out
-        }, 3000); // temps affiché
-      }, delay);
+            // Ajoutez 'hidden' ici aussi si nécessaire
+            // message.classList.add('hidden');
+          }, 2000);
+        }, 3000);
+      }
       delay += 5000; // délai entre chaque message
     });
   };
