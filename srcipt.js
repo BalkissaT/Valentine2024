@@ -2,42 +2,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const messages = document.querySelectorAll('.message');
     let delay = 0;
 
-    // Fonction pour afficher un message
-    function showMessage(message) {
-        message.classList.remove('hidden');
-        message.style.animation = 'fadeIn 2s forwards';
-    }
-
-    // Fonction pour cacher un message
-    function hideMessage(message, delay) {
+    const animateMessage = (message, delay) => {
         setTimeout(() => {
-            message.style.animation = 'fadeOut 2s forwards';
-            setTimeout(() => message.classList.add('hidden'), 2000); // Assurez-vous que le message est caché après l'animation
-        }, delay - 2000); // Commence à cacher avant l'apparition du prochain message
-    }
+            message.classList.add('fade-in');
+            setTimeout(() => {
+                message.classList.remove('fade-in');
+                message.classList.add('fade-out');
+                setTimeout(() => {
+                    message.classList.remove('fade-out');
+                    message.classList.add('hidden');
+                }, 1000); // Durée de l'animation fadeOut
+            }, 3000); // Temps que le message est visible à l'écran
+        }, delay);
+    };
 
-    // Affiche chaque message séquentiellement
-    messages.forEach((message, index) => {
-        setTimeout(() => showMessage(message), delay);
-        hideMessage(message, delay + 4000); // 4000 pour correspondre à la durée de l'animation + délai
-        delay += 4000;
+    messages.forEach((message) => {
+        animateMessage(message, delay);
+        delay += 4000; // Temps avant l'apparition du prochain message
     });
 
-    // Générer et animer des cœurs à la fin
+    // Animation des cœurs
     setTimeout(() => {
-        for (let i = 0; i < 10; i++) { // Créez et animez 10 cœurs
+        for (let i = 0; i < 20; i++) {
             const heart = document.createElement('div');
-            heart.classList.add('heart');
+            heart.classList.add('heart', 'hidden');
             document.body.appendChild(heart);
-            animateHeart(heart, i * 500); // Anime chaque cœur avec un délai
+            // Position aléatoire sur la page
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.top = `${Math.random() * 100}%`;
+
+            setTimeout(() => {
+                heart.classList.remove('hidden');
+                heart.classList.add('animate-heart');
+                setTimeout(() => {
+                    heart.classList.add('hidden');
+                    document.body.removeChild(heart);
+                }, 5000); // Les cœurs restent à l'écran pendant 5 secondes
+            }, i * 200); // Chaque cœur apparaît à un intervalle de 200ms
         }
     }, delay);
-
-    // Fonction pour animer les cœurs
-    function animateHeart(heart, delay) {
-        setTimeout(() => {
-            heart.style.animation = `scaleIn 1s forwards, scaleOut 1s ${1 + delay / 1000}s forwards`;
-            setTimeout(() => heart.remove(), delay + 2000); // Supprime le cœur après l'animation
-        }, delay);
-    }
 });
