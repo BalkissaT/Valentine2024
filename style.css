@@ -18,10 +18,27 @@ body, html {
     margin: 0;
     padding: 0;
     position: absolute;
-    opacity: 0;
+    opacity: 0; /* Initialement invisibles */
     transition: opacity 3s ease, transform 3s ease;
     transform: translateY(-20px);
+    visibility: hidden; /* Assurez-vous que cela est géré par les animations */
+}
+
+/* Ajout des définitions pour les animations fade-in et fade-out */
+.fade-in {
+    opacity: 1;
+    visibility: visible; /* Rend les éléments visibles lors de l'animation */
+    transition: opacity 3s ease-in, visibility 0s 0s;
+}
+
+.fade-out {
+    opacity: 0;
     visibility: hidden;
+    transition: opacity 3s ease-out, visibility 0s 3s; /* Delay sur visibility pour attendre la fin de l'opacité */
+}
+
+.hidden {
+    display: none; /* Option pour cacher complètement les éléments, si nécessaire */
 }
 
 /* Styles pour les cœurs qui apparaîtront dans l'animation */
@@ -62,12 +79,11 @@ body, html {
     50% { transform: scale(1.1) rotate(-45deg); }
 }
 
-/* La classe 'animate-heart' sera ajoutée par JavaScript pour déclencher l'animation */
 .animate-heart {
     animation: beat 1s ease infinite;
 }
 
-/* Animation pour faire apparaître les cœurs */
+/* Animation pour faire apparaître et disparaître les cœurs */
 @keyframes enterHeart {
     0% {
         transform: scale(0) rotate(-45deg);
@@ -83,12 +99,10 @@ body, html {
     }
 }
 
-/* La classe 'enter' sera ajoutée pour faire apparaître les cœurs */
 .enter {
     animation: enterHeart 2s ease forwards;
 }
 
-/* Animation pour faire disparaître les cœurs */
 @keyframes leaveHeart {
     0% {
         transform: scale(1) rotate(-45deg);
@@ -100,7 +114,6 @@ body, html {
     }
 }
 
-/* La classe 'leave' sera ajoutée pour faire disparaître les cœurs */
 .leave {
     animation: leaveHeart 2s ease forwards;
 }
