@@ -11,46 +11,48 @@ body, html {
     overflow: hidden;
 }
 
-/* Styles pour les messages qui apparaissent et disparaissent */
+/* Styles for messages that appear and disappear */
 .message {
     color: black;
     font-size: 3em;
     margin: 0;
     padding: 0;
     position: absolute;
-    opacity: 0; /* Initialement invisibles */
-    transition: opacity 3s ease, transform 3s ease;
+    opacity: 0; /* Initially invisible */
+    transition: opacity 3s ease-in-out, visibility 0s linear 3s; /* Delay visibility to match opacity */
     transform: translateY(-20px);
-    visibility: hidden; /* Assurez-vous que cela est géré par les animations */
+    visibility: hidden;
 }
 
-/* Ajout des définitions pour les animations fade-in et fade-out */
+/* Hidden state for messages */
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Styles for fade-in animation */
 .fade-in {
     opacity: 1;
-    visibility: visible; /* Rend les éléments visibles lors de l'animation */
-    transition: opacity 3s ease-in, visibility 0s 0s;
+    visibility: visible;
+    transition: opacity 3s ease-in-out, visibility 0s 0s; /* Apply visibility immediately */
 }
 
+/* Styles for fade-out animation */
 .fade-out {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 3s ease-out, visibility 0s 3s; /* Delay sur visibility pour attendre la fin de l'opacité */
+    transition: opacity 3s ease-in-out, visibility 0s 3s; /* Delay visibility to match opacity */
 }
 
-.hidden {
-    display: none; /* Option pour cacher complètement les éléments, si nécessaire */
-}
-
-/* Styles pour les cœurs qui apparaîtront dans l'animation */
+/* Styles for hearts that will appear in the animation */
 .heart {
     position: absolute;
     width: 50px;
     height: 50px;
     background-color: red;
-    margin: 2px;
     transform: rotate(-45deg);
     transform-origin: center;
-    opacity: 0; /* Les cœurs sont initialement invisibles */
+    opacity: 0; /* Hearts are initially invisible */
 }
 
 .heart:before,
@@ -73,17 +75,18 @@ body, html {
     left: 25px;
 }
 
-/* Animation pour les cœurs */
+/* Keyframes for heart animations */
 @keyframes beat {
     0%, 100% { transform: scale(1) rotate(-45deg); }
     50% { transform: scale(1.1) rotate(-45deg); }
 }
 
+/* Class 'animate-heart' will be added by JavaScript to trigger the animation */
 .animate-heart {
     animation: beat 1s ease infinite;
 }
 
-/* Animation pour faire apparaître et disparaître les cœurs */
+/* Keyframes for heart appearing */
 @keyframes enterHeart {
     0% {
         transform: scale(0) rotate(-45deg);
@@ -99,10 +102,12 @@ body, html {
     }
 }
 
+/* Class 'enter' will be added to make the hearts appear */
 .enter {
     animation: enterHeart 2s ease forwards;
 }
 
+/* Keyframes for heart disappearing */
 @keyframes leaveHeart {
     0% {
         transform: scale(1) rotate(-45deg);
@@ -114,6 +119,7 @@ body, html {
     }
 }
 
+/* Class 'leave' will be added to make the hearts disappear */
 .leave {
     animation: leaveHeart 2s ease forwards;
 }
