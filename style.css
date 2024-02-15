@@ -1,7 +1,6 @@
 body, html {
     height: 100%;
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
     background: pink;
     display: flex;
@@ -18,59 +17,74 @@ body, html {
     padding: 0;
     position: absolute;
     opacity: 0;
-    transition: opacity 2s ease, transform 2s ease;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateY(-20px);
+    visibility: hidden;
 }
 
-.hidden {
-    display: none;
+/* Classes pour contrôler les animations d'apparition et de disparition */
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    animation: fadeIn 1s ease forwards;
 }
 
-/* Animation pour les messages qui apparaissent et disparaissent */
+.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+    visibility: hidden;
+    animation: fadeOut 1s ease forwards;
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-20px); visibility: hidden; }
+    to { opacity: 1; transform: translateY(0); visibility: visible; }
 }
 
 @keyframes fadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(20px); }
+    from { opacity: 1; transform: translateY(0); visibility: visible; }
+    to { opacity: 0; transform: translateY(20px); visibility: hidden; }
 }
 
-/* Keyframes pour les coeurs animés */
-@keyframes scaleIn {
-    from {
-        transform: scale(0);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes scaleOut {
-    from {
-        transform: scale(1);
-        opacity: 1;
-    }
-    to {
-        transform: scale(0);
-        opacity: 0;
-    }
-}
-
+/* Styles pour les coeurs qui apparaîtront dans l'animation */
 .heart {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-    background-image: url('heart.png'); /* Remplacer par le chemin de votre image de coeur */
-    background-size: cover;
-    opacity: 0;
-    animation: scaleIn 1s ease forwards, scaleOut 1s ease forwards;
-    animation-fill-mode: forwards;
+    width: 50px; /* Taille des cœurs */
+    height: 50px;
+    background-color: red;
+    margin: 2px;
+    transform: rotate(-45deg);
+    opacity: 0; /* Les cœurs sont initialement invisibles */
 }
 
-/* Vous pouvez ajouter plus de styles pour les autres animations souhaitées ici */
+.heart:before,
+.heart:after {
+    content: "";
+    background-color: red;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+}
+
+.heart:before {
+    top: -25px;
+    left: 0;
+}
+
+.heart:after {
+    top: 0;
+    left: 25px;
+}
+
+/* Animation pour les cœurs */
+@keyframes beat {
+    0%, 100% { transform: scale(1) rotate(-45deg); }
+    50% { transform: scale(1.2) rotate(-45deg); }
+}
+
+/* La classe 'animate-heart' sera ajoutée par JavaScript pour déclencher l'animation */
+.animate-heart {
+    animation: beat 1s ease infinite;
+}
