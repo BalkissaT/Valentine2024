@@ -1,6 +1,7 @@
 body, html {
     height: 100%;
     margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
     background: pink;
     display: flex;
@@ -10,6 +11,7 @@ body, html {
     overflow: hidden;
 }
 
+/* Styles pour les messages qui apparaissent et disparaissent */
 .message {
     color: white;
     font-size: 2em;
@@ -17,44 +19,20 @@ body, html {
     padding: 0;
     position: absolute;
     opacity: 0;
-    transition: opacity 1s ease, transform 1s ease;
+    transition: opacity 2s ease, transform 2s ease;
     transform: translateY(-20px);
     visibility: hidden;
 }
 
-/* Classes pour contrôler les animations d'apparition et de disparition */
-.fade-in {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-    animation: fadeIn 1s ease forwards;
-}
-
-.fade-out {
-    opacity: 0;
-    transform: translateY(20px);
-    visibility: hidden;
-    animation: fadeOut 1s ease forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); visibility: hidden; }
-    to { opacity: 1; transform: translateY(0); visibility: visible; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; transform: translateY(0); visibility: visible; }
-    to { opacity: 0; transform: translateY(20px); visibility: hidden; }
-}
-
-/* Styles pour les coeurs qui apparaîtront dans l'animation */
+/* Styles pour les cœurs qui apparaîtront dans l'animation */
 .heart {
     position: absolute;
-    width: 50px; /* Taille des cœurs */
+    width: 50px;
     height: 50px;
     background-color: red;
     margin: 2px;
     transform: rotate(-45deg);
+    transform-origin: center;
     opacity: 0; /* Les cœurs sont initialement invisibles */
 }
 
@@ -81,10 +59,48 @@ body, html {
 /* Animation pour les cœurs */
 @keyframes beat {
     0%, 100% { transform: scale(1) rotate(-45deg); }
-    50% { transform: scale(1.2) rotate(-45deg); }
+    50% { transform: scale(1.1) rotate(-45deg); }
 }
 
 /* La classe 'animate-heart' sera ajoutée par JavaScript pour déclencher l'animation */
 .animate-heart {
     animation: beat 1s ease infinite;
+}
+
+/* Animation pour faire apparaître les cœurs */
+@keyframes enterHeart {
+    0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0.5) rotate(-45deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1) rotate(-45deg);
+        opacity: 1;
+    }
+}
+
+/* La classe 'enter' sera ajoutée pour faire apparaître les cœurs */
+.enter {
+    animation: enterHeart 2s ease forwards;
+}
+
+/* Animation pour faire disparaître les cœurs */
+@keyframes leaveHeart {
+    0% {
+        transform: scale(1) rotate(-45deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+/* La classe 'leave' sera ajoutée pour faire disparaître les cœurs */
+.leave {
+    animation: leaveHeart 2s ease forwards;
 }
